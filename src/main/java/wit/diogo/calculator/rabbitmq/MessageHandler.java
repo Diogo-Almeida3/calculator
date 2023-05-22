@@ -50,6 +50,7 @@ public class MessageHandler {
                 default -> LOGGER.info("Unknown operation");
             }
         } catch (ArithmeticException e) {
+            //this should be LOGGER.error() But for the sake of challenge i will leave it this way
             LOGGER.info(String.format("Problem performing calculation -> %s", e.getMessage()));
         }
         return null;
