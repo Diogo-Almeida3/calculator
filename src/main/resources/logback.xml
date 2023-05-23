@@ -26,14 +26,8 @@
 
     </appender>
 
-    <!-- Logging at INFO level -->
-    <root level="info">
-        <appender-ref ref="LogFile" />
-        <appender-ref ref="ConsoleOutput" />
-    </root>
 
-    <!-- Logging at TRACE level -->
-    <logger name="com.log" level="trace" additivity="false">
+    <logger name="wit.diogo.calculator.rabbitmq.MessageHandler" level="INFO">
         <appender-ref ref="LogFile" />
         <appender-ref ref="ConsoleOutput" />
     </logger>
