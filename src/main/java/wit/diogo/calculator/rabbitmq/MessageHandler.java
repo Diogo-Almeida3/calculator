@@ -26,7 +26,7 @@ public class MessageHandler {
     public Message consume(MessageDto message) {
         MDC.put("identifier", message.getIdentifier());
 
-        LOGGER.info("Module -> Calculator - Identifier -> " + MDC.get("identifier") +  " - Performing calculation");
+        LOGGER.info("Module -> Calculator - Identifier -> " + MDC.get("identifier") +  " - Performing " + message.getOperation() + "...");
 
         BigDecimal result = calculateResult(message);
 
