@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOG_PATH" value="./logs" />
+    <property name="LOG_FILE_NAME" value="log-file" />
+
+    <!-- Setting up logging pattern for console logging -->
+    <appender name="ConsoleOutput"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %white(%d{ISO8601}) %highlight(%-5level) [%yellow(%t)] : %mdc -  %msg%n%throwable
+            </Pattern>
+        </layout>
+    </appender>
+
+    <!-- Setting the filename and logging pattern for log file -->
+    <appender name="LogFile"
+              class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_PATH}/${LOG_FILE_NAME}.log</file>
+        <encoder
+                class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level : %msg%n
+            </Pattern>
+        </encoder>
+
+    </appender>
+
+    <!-- Logging at INFO level -->
+    <root level="info">
+        <appender-ref ref="LogFile" />
+        <appender-ref ref="ConsoleOutput" />
+    </root>
+
+    <!-- Logging at TRACE level -->
+    <logger name="com.log" level="trace" additivity="false">
+        <appender-ref ref="LogFile" />
+        <appender-ref ref="ConsoleOutput" />
+    </logger>
+
+</configuration>

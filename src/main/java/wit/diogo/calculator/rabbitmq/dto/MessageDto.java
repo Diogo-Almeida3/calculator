@@ -10,4 +10,5 @@ public class MessageDto {
     private BigDecimal firstValue;
     private BigDecimal secondValue;
     private Operation operation;
+    private String Identifier;
 }

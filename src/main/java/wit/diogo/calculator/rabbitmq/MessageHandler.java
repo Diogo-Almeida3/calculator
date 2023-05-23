@@ -2,6 +2,7 @@ package wit.diogo.calculator.rabbitmq;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -23,10 +24,13 @@ public class MessageHandler {
     @RabbitListener(queues = "${rabbitmq.configuration.read-queue.name}")
     @SendTo
     public Message consume(MessageDto message) {
+        MDC.put("identifier", message.getIdentifier());
+
+        LOGGER.info("Module -> Calculator - Identifier -> " + MDC.get("identifier") +  " - Performing calculation");
 
         BigDecimal result = calculateResult(message);
 
-        LOGGER.info(String.format("Result -> %s", result));
+        LOGGER.info("Module -> Calculator - Identifier -> " + MDC.get("identifier") +  " - Calculation completed sending result to rest module");
 
         //We process null responses on the Rest side
         return rabbitTemplate.getMessageConverter().toMessage(result, null);
