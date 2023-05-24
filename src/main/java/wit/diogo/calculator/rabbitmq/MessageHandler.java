@@ -26,11 +26,11 @@ public class MessageHandler {
     public Message consume(MessageDto message) {
         MDC.put("identifier", message.getIdentifier());
 
-        LOGGER.info("Module -> Calculator - Identifier -> " + MDC.get("identifier") +  " - Performing " + message.getOperation() + "...");
+        LOGGER.info("Module -> Calculator - Identifier -> " + MDC.get("identifier") + " - Performing " + message.getOperation() + "...");
 
         BigDecimal result = calculateResult(message);
 
-        LOGGER.info("Module -> Calculator - Identifier -> " + MDC.get("identifier") +  " - Calculation completed sending result to rest module");
+        LOGGER.info("Module -> Calculator - Identifier -> " + MDC.get("identifier") + " - Calculation completed sending result to rest module");
 
         //We process null responses on the Rest side
         return rabbitTemplate.getMessageConverter().toMessage(result, null);
@@ -39,19 +39,20 @@ public class MessageHandler {
     private BigDecimal calculateResult(MessageDto message) {
         try {
             switch (message.getOperation()) {
-                case ADD -> {
+                case ADD:
                     return message.getFirstValue().add(message.getSecondValue());
-                }
-                case SUB -> {
+
+                case SUB:
                     return message.getFirstValue().subtract(message.getSecondValue());
-                }
-                case MUL -> {
+
+                case MUL:
                     return message.getFirstValue().multiply(message.getSecondValue());
-                }
-                case DIV -> {
+
+                case DIV:
                     return message.getFirstValue().divide(message.getSecondValue());
-                }
-                default -> LOGGER.info("Unknown operation");
+
+                default:
+                    LOGGER.info("Unknown operation");
             }
         } catch (ArithmeticException e) {
             //this should be LOGGER.error() But for the sake of challenge i will leave it this way
