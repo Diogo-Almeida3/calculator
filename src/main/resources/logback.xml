@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <property name="LOG_PATH" value="./logs" />
-    <property name="LOG_FILE_NAME" value="log-file" />
+    <property name="LOG_PATH" value="./logs"/>
+    <property name="LOG_FILE_NAME" value="log-file"/>
 
     <!-- Setting up logging pattern for console logging -->
     <appender name="ConsoleOutput"
               class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>
-                %white(%d{ISO8601}) %highlight(%-5level) [%yellow(%t)] : %X{identifier} -  %msg%n%throwable
+                %white(%d{ISO8601}) %highlight(%-5level) [%yellow(%t)] : %X{identifier} - %msg%n%throwable
             </Pattern>
         </layout>
     </appender>
@@ -28,8 +28,8 @@
 
 
     <logger name="wit.diogo.calculator.rabbitmq.MessageHandler" level="INFO">
-        <appender-ref ref="LogFile" />
-        <appender-ref ref="ConsoleOutput" />
+        <appender-ref ref="LogFile"/>
+        <appender-ref ref="ConsoleOutput"/>
     </logger>
 
 </configuration>
