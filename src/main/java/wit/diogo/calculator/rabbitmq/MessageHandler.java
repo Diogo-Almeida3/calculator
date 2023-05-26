@@ -31,7 +31,7 @@ public class MessageHandler {
         BigDecimal result = calculateResult(message);
 
         LOGGER.info("Module -> Calculator - Calculation completed sending result to rest module");
-
+        MDC.remove("identifier");
         //We process null responses on the Rest side
         return rabbitTemplate.getMessageConverter().toMessage(result, null);
     }
