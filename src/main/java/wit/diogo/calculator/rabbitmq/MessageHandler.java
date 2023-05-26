@@ -26,11 +26,11 @@ public class MessageHandler {
     public Message consume(MessageDto message) {
         MDC.put("identifier", message.getIdentifier());
 
-        LOGGER.info("Module -> Calculator - Identifier -> " + MDC.get("identifier") + " - Performing " + message.getOperation() + "...");
+        LOGGER.info("Module -> Calculator - Performing " + message.getOperation() + "...");
 
         BigDecimal result = calculateResult(message);
 
-        LOGGER.info("Module -> Calculator - Identifier -> " + MDC.get("identifier") + " - Calculation completed sending result to rest module");
+        LOGGER.info("Module -> Calculator - Calculation completed sending result to rest module");
 
         //We process null responses on the Rest side
         return rabbitTemplate.getMessageConverter().toMessage(result, null);
